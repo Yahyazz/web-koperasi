@@ -13,7 +13,7 @@ if (!$koneksi){
 }
 
 
-
+$id = "";
 $kode_pinjaman        = "";
 $besar_pinjaman  = "";
 $lama_angsuran = "";
@@ -25,6 +25,50 @@ $kode_jaminan ="";
 
 $gagal ="";
 $sukses="";
+
+if(isset($_GET['op'])){
+    $op = $_GET['op'];
+} else {
+    $op = "";
+}
+
+if($op == 'edit'){
+    $id = $_GET['kode_pinjaman'];
+    $sql1 = "select * from koperasi_web.pinjaman where koperasi_web.pinjaman.kode_pinjaman = '$id'";
+    $q1 = mysqli_query($koneksi,$sql1);
+    $r1 = mysqli_fetch_array($q1);
+    $kode_pinjaman   =$r1['kode_pinjaman'];
+    $besar_pinjaman  =$r1['besar_pinjaman'];
+    $lama_angsuran =$r1['lama_angsuran'];
+    $bunga =$r1['bunga'];
+    $besar_angsuran =$r1['besar_angsuran'];
+    $id_anggota=$r1['id_anggota'];
+    $id_petugas =$r1['id_petugas'];
+    $kode_jaminan =$r1['kode_jaminan'];
+
+    if($kode_pinjaman == ''){
+        $gagal = "Data tidak ditemukan";
+    } else {
+        $sukses = "Anda akan memperbarui data untuk kode pinjaman = $kode_pinjaman
+        <br/>
+        Besar Pinjaman = $besar_pinjaman
+        <br/>
+        Lama Angsuran = $lama_angsuran
+        <br/>
+        Bunga = $bunga
+        <br/>
+        Besar Angsuran = $besar_angsuran
+        <br/>
+        ID Anggota = $id_anggota
+        <br/>
+        ID Petugas = $id_petugas
+        <br/>
+        Kode Jaminan = $kode_jaminan
+        <br/>
+        <br/>
+        Note : Tulis ulang kode_jaminan, karena kode_jaminan tidak boleh diubah.";
+    }
+}
 
 if(isset($_POST['simpan'])){
 $kode_pinjaman   =$_POST['kode_pinjaman'];
@@ -38,13 +82,23 @@ $kode_jaminan =$_POST['kode_jaminan'];
     
 
     if($kode_pinjaman && $besar_pinjaman && $lama_angsuran && $bunga && $besar_angsuran && $id_anggota && $id_petugas && $kode_jaminan ){
-        $sql1 = "insert into koperasi_web.pinjaman(kode_pinjaman, besar_pinjaman, lama_angsuran, bunga, besar_angsuran, id_anggota, id_petugas, kode_jaminan) values ('$kode_pinjaman','$besar_pinjaman','$lama_angsuran','$bunga','$besar_angsuran','$id_anggota','$id_petugas','$kode_jaminan')";
-        $q1   = mysqli_query($koneksi,$sql1);
-
-        if ($q1) {
-            $sukses = "Berhasil Memasukan Data Baru";
-        }else {
-            $gagal  = "Gagal Memasukan Data";
+        if($op == 'edit'){
+            $sql1 = "update koperasi_web.pinjaman set kode_pinjaman = '$kode_pinjaman',besar_pinjaman  = '$besar_pinjaman', lama_angsuran = '$lama_angsuran', bunga = '$bunga', besar_angsuran = '$besar_angsuran', id_anggota= '$id_anggota', id_petugas = '$id_petugas', kode_jaminan = '$kode_jaminan' where koperasi_web.pinjaman.kode_pinjaman = '$kode_pinjaman'";
+            $q1 = mysqli_query($koneksi,$sql1);
+            if($q1){
+                $sukses = "Berhasil update data";
+            } else {
+                $gagal = "Gagal update data";
+            }
+        } else {
+            $sql1 = "insert into koperasi_web.pinjaman(kode_pinjaman, besar_pinjaman, lama_angsuran, bunga, besar_angsuran, id_anggota, id_petugas, kode_jaminan) values ('$kode_pinjaman','$besar_pinjaman','$lama_angsuran','$bunga','$besar_angsuran','$id_anggota','$id_petugas','$kode_jaminan')";
+            $q1   = mysqli_query($koneksi,$sql1);
+    
+            if ($q1) {
+                $sukses = "Berhasil Memasukan Data Baru";
+            }else {
+                $gagal  = "Gagal Memasukan Data";
+            }
         }
     }else {
         $gagal = "Silakan memasukan semua data";
@@ -111,7 +165,7 @@ $kode_jaminan =$_POST['kode_jaminan'];
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="besar_pinjaman" class="col-sm-2 col-form-label">besar_pinjaman</label>
+                    <label for="besar_pinjaman" class="col-sm-2 col-form-label">Besar pinjaman</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id = "besar_pinjaman" name= "besar_pinjaman"  >
                     </div>
@@ -148,7 +202,7 @@ $kode_jaminan =$_POST['kode_jaminan'];
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label for="kode_jaminan" class="col-sm-2 col-form-label">Kode_Jaminan</label>
+                    <label for="kode_jaminan" class="col-sm-2 col-form-label">Kode Jaminan</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id = "kode_jaminan" name="kode_jaminan"  >
                     </div>

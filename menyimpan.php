@@ -13,7 +13,7 @@ if (!$koneksi){
 }
 
 
-
+$id = "";
 $id_anggota= "";
 $kode_simpanan         = "";
 $tanggal               = "";
@@ -21,6 +21,40 @@ $jumlah            = "";
 
 $gagal ="";
 $sukses="";
+
+if(isset($_GET['op'])){
+    $op = $_GET['op'];
+} else {
+    $op = "";
+}
+
+if($op == 'edit'){
+    $id = $_GET['id_anggota'];
+    $sql1 = "select * from koperasi_web.menyimpan where koperasi_web.menyimpan.id_anggota = '$id'";
+    $q1 = mysqli_query($koneksi,$sql1);
+    $r1 = mysqli_fetch_array($q1);
+    $id_anggota = $r1['id_anggota'];
+    $kode_simpanan= $r1['kode_simpanan'];
+    $tanggal= $r1['tanggal'];
+    $jumlah= $r1['jumlah'];
+
+    if($id_anggota == ''){
+        $gagal = "Data tidak ditemukan";
+    } else {
+        $sukses = "Anda akan memperbarui data untuk id anggota = $id_anggota
+        <br/>
+        Dengan rincian
+        <br/>
+        Kode simpanan = $kode_simpanan
+        <br/>
+        tanggal = $tanggal
+        <br/>
+        Jumlah = $jumlah
+        <br/>
+        <br/>
+        Note : Tulis ulang id_anggota, karena id_anggota tidak boleh diubah.";
+    }
+}
 
 if(isset($_POST['simpan'])){
     $id_anggota= $_POST['id_anggota'];
@@ -30,13 +64,23 @@ if(isset($_POST['simpan'])){
     
 
     if($id_anggota && $kode_simpanan && $tanggal && $jumlah){
-        $sql1 = "insert into koperasi_web.menyimpan(id_anggota,kode_simpanan,tanggal,jumlah) values ('$id_anggota','$kode_simpanan','$tanggal','$jumlah')";
-        $q1   = mysqli_query($koneksi,$sql1);
+        if($op == 'edit'){
+            $sql1 = "update koperasi_web.menyimpan set id_anggota = '$id_anggota',kode_simpanan = '$kode_simpanan', tanggal = '$tanggal', jumlah = '$jumlah' where koperasi_web.menyimpan.id_anggota = '$id_anggota'";
+            $q1 = mysqli_query($koneksi,$sql1);
+            if($q1){
+                $sukses = "Berhasil update data";
+            } else {
+                $gagal = "Gagal update data";
+            }
+        } else {
+            $sql1 = "insert into koperasi_web.menyimpan(id_anggota,kode_simpanan,tanggal,jumlah) values ('$id_anggota','$kode_simpanan','$tanggal','$jumlah')";
+            $q1   = mysqli_query($koneksi,$sql1);
 
-        if ($q1) {
-            $sukses = "Berhasil Memasukan Data Baru";
-        }else {
-            $gagal  = "Gagal Memasukan Data";
+            if ($q1) {
+                $sukses = "Berhasil Memasukan Data Baru";
+            }else {
+                $gagal  = "Gagal Memasukan Data";
+            }
         }
     }else {
         $gagal = "Silakan memasukan semua data";

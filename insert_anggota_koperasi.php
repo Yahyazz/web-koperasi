@@ -133,7 +133,6 @@ if(isset($_POST['simpan'])){
                     ?>
                 </div>
             <?php
-                header("refresh:5;url=insert_anggota_koperasi.php");
                 }
             ?>
             <?php
@@ -145,7 +144,6 @@ if(isset($_POST['simpan'])){
                     ?>
                 </div>
             <?php
-                header("refresh:5;url=insert_anggota_koperasi.php");
                 }
             ?>
                 

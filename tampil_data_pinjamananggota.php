@@ -12,6 +12,35 @@ if (!$koneksi){
     die ("tidak bisa koneksi");
 }
 
+$kode_pinjaman        = "";
+$besar_pinjaman  = "";
+$lama_angsuran = "";
+$bunga = "";
+$besar_angsuran = "";
+$id_anggota="";
+$id_petugas ="";
+$kode_jaminan ="";
+
+$gagal ="";
+$sukses="";
+
+if(isset($_GET['op'])){
+    $op = $_GET['op'];
+} else {
+    $op = "";
+}
+
+if($op == 'delete'){
+    $id = $_GET['kode_pinjaman'];
+    $sql1 = "delete from koperasi_web.pinjaman where koperasi_web.pinjaman.kode_pinjaman = '$id'";
+    $q1 = mysqli_query($koneksi,$sql1);
+    if($q1){
+        $sukses = "Data berhasil dihapus";
+    } else {
+        $gagal = "Gagal hapus data";
+    }
+}
+
 ?>
  
 <html>
@@ -42,6 +71,30 @@ if (!$koneksi){
             Data Pinjaman Anggota Koperasi
         </div>
         <div class="card-body">
+        <?php
+                if ($gagal) {
+            ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php 
+                        echo $gagal;
+                    ?>
+                </div>
+            <?php
+                header("refresh:5;url=tampil_data_pinjamananggota.php");
+                }
+            ?>
+            <?php
+                if ($sukses) {
+            ?>
+                <div class="alert alert-success" role="alert">
+                    <?php
+                        echo $sukses;
+                    ?>
+                </div>
+            <?php
+                header("refresh:5;url=tampil_data_pinjamananggota.php");
+                }
+            ?>
                 <table class ="table">
                     <thead>
                         <tr>
@@ -61,7 +114,7 @@ if (!$koneksi){
                     </thead>
                     <tbody>
                         <?php
-                            $sql2  = "select anggota.id_anggota, anggota.nama, anggota.jenis_kelamin, anggota.alamat, anggota.tanggungan, pinjaman.kode_pinjaman, pinjaman.besar_pinjaman, pinjaman.lama_angsuran, petugas.nama_ptgs from anggota inner join pinjaman ON anggota.id_anggota = pinjaman.id_anggota inner join petugas ON pinjaman.id_petugas = petugas.id_petugas"; 
+                            $sql2  = "select anggota.id_anggota, anggota.nama, anggota.jenis_kelamin, anggota.alamat, anggota.tanggungan, pinjaman.kode_pinjaman, pinjaman.besar_pinjaman, pinjaman.lama_angsuran, petugas.nama_petugas from anggota inner join pinjaman ON anggota.id_anggota = pinjaman.id_anggota inner join petugas ON pinjaman.id_petugas = petugas.id_petugas"; 
                             $q2    = mysqli_query($koneksi,$sql2);
 
                             while ($r2 = mysqli_fetch_array($q2)){
@@ -73,7 +126,7 @@ if (!$koneksi){
                                 $kode_pinjaman   =$r2['kode_pinjaman'];
                                 $besar_pinjaman  =$r2['besar_pinjaman'];
                                 $lama_angsuran   =$r2['lama_angsuran'];
-                                $nama_ptgs =$r2['nama_ptgs'];
+                                $nama_petugas =$r2['nama_petugas'];
 
 
                                 ?>
@@ -86,10 +139,10 @@ if (!$koneksi){
                                         <td scope="row"><?php echo $kode_pinjaman ?></td>
                                         <td scope="row"><?php echo $besar_pinjaman ?></td>
                                         <td scope="row"><?php echo $lama_angsuran ?></td>
-                                        <td scope="row"><?php echo $nama_ptgs ?></td>
+                                        <td scope="row"><?php echo $nama_petugas ?></td>
                                         <td scope="row">
-                                            <button type="button" class="btn btn-outline-warning">Edit</button>
-                                            <button type="button" class="btn btn-outline-danger">Delete</button>
+                                            <a href="insert_pinjaman.php?op=edit&kode_pinjaman=<?php echo $kode_pinjaman ?>"><button type="button" class="btn btn-outline-warning">Edit</button></a>
+                                            <a href="tampil_data_pinjamananggota.php?op=delete&kode_pinjaman=<?php echo $kode_pinjaman ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data?')"><button type="button" class="btn btn-outline-danger">Delete</button></a>
                                         </td>
                                     </tr>
                                 <?php
@@ -97,6 +150,9 @@ if (!$koneksi){
                         ?>
                     </tbody>
                 </table>
+                <div class="col-123">
+                <a href="index.html"><button type="button" class="btn btn-outline-dark">HOME</button></a>
+                </div>
         </div>
     </div>
 </div>

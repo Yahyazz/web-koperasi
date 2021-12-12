@@ -13,13 +13,58 @@ if (!$koneksi){
 }
 
 
-
+$id = "";
 $id_petugas        = "";
 $nama_petugas       = "";
 $jenis_kelamin     = "";
 $bagian            = "";
 $gagal              ="";
 $sukses             ="";
+
+if(isset($_GET['op'])){
+    $op = $_GET['op'];
+} else {
+    $op = "";
+}
+
+if($op == 'edit'){
+    $id = $_GET['id_petugas'];
+    $sql1 = "select * from koperasi_web.petugas where koperasi_web.petugas.id_petugas = '$id'";
+    $q1 = mysqli_query($koneksi,$sql1);
+    $r1 = mysqli_fetch_array($q1);
+    $id_petugas         = $r1['id_petugas'];
+    $nama_petugas       = $r1['nama_petugas'];
+    $jenis_kelamin      = $r1['jenis_kelamin'];
+    $bagian             = $r1['bagian'];
+
+    if($id_petugas == ''){
+        $gagal = "Data tidak ditemukan";
+    } else {
+        $sukses = "Anda akan memperbarui data untuk id petugas = $id_petugas
+        <br/>
+        Dengan rincian
+        <br/>
+        Nama = $nama_petugas
+        <br/>
+        Jenis Kelamin = $jenis_kelamin
+        <br/>
+        Bagian = $bagian
+        <br/>
+        <br/>
+        Note : Tulis ulang id_petugas, karena id_petugas tidak boleh diubah.";
+    }
+}
+
+if($op == 'delete'){
+    $id = $_GET['id_petugas'];
+    $sql1 = "delete from koperasi_web.petugas where koperasi_web.petugas.id_petugas = '$id'";
+    $q1 = mysqli_query($koneksi,$sql1);
+    if($q1){
+        $sukses = "Data berhasil dihapus";
+    } else {
+        $gagal = "Gagal hapus data";
+    }
+}
 
 if(isset($_POST['simpan'])){
     $id_petugas         = $_POST['id_petugas'];
@@ -31,13 +76,23 @@ if(isset($_POST['simpan'])){
 
 
     if($id_petugas && $nama_petugas && $jenis_kelamin && $bagian){
-        $sql1 = "INSERT INTO koperasi_web.petugas ('id_petugas','nama_petugas','jenis_kelamin','bagian') VALUES ('$id_petugas','$nama_petugas','$jenis_kelamin','$bagian')";
-        $q1   = mysqli_query($koneksi,$sql1);
-
-        if ($q1) {
-            $sukses = "Berhasil Memasukan Data Baru";
-        }else {
-            $gagal  = "Gagal Memasukan Data";
+        if($op == 'edit'){
+            $sql1 = "update petugas set id_petugas = '$id_petugas',nama_petugas = '$nama_petugas', jenis_kelamin = '$jenis_kelamin', bagian = '$bagian' where id_petugas = '$id_petugas'";
+            $q1 = mysqli_query($koneksi,$sql1);
+            if($q1){
+                $sukses = "Berhasil update data";
+            } else {
+                $gagal = "Gagal update data";
+            }
+        } else {
+            $sql1 = "insert into koperasi_web.petugas(id_petugas,nama_petugas,jenis_kelamin,bagian) values ('$id_petugas','$nama_petugas','$jenis_kelamin','$bagian')";
+            $q1   = mysqli_query($koneksi,$sql1);
+    
+            if ($q1) {
+                $sukses = "Berhasil Memasukan Data Baru";
+            }else {
+                $gagal  = "Gagal Memasukan Data";
+            }
         }
     }else {
         $gagal = "Silakan memasukan semua data";
@@ -137,7 +192,7 @@ if(isset($_POST['simpan'])){
 
     <div class="card">
         <div class="card-header text-white bg-secondary">
-            Data Anggota
+            Data Petugas
         </div>
         <div class="card-body">
                 <table class ="table">
@@ -152,7 +207,7 @@ if(isset($_POST['simpan'])){
                     </thead>
                     <tbody>
                         <?php
-                            $sql2  = "select * from petugas"; 
+                            $sql2  = "select * from koperasi_web.petugas"; 
                             $q2    = mysqli_query($koneksi,$sql2);
                         
                             while ($r2 = mysqli_fetch_array($q2)){
@@ -171,8 +226,8 @@ if(isset($_POST['simpan'])){
                                         <td scope="row"><?php echo $bagian ?></td>
                                        
                                         <td scope="row">
-                                            <button type="button" class="btn btn-outline-warning">Edit</button>
-                                            <button type="button" class="btn btn-outline-danger">Delete</button>
+                                            <a href="insert_petugas.php?op=edit&id_petugas=<?php echo $id_petugas ?>"><button type="button" class="btn btn-outline-warning">Edit</button></a>
+                                            <a href="insert_petugas.php?op=delete&id_petugas=<?php echo $id_petugas ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data?')"><button type="button" class="btn btn-outline-danger">Delete</button></a>
                                         </td>
                                     </tr>
                                 <?php

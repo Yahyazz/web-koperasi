@@ -23,27 +23,23 @@ $tanggungan = "";
 $gagal ="";
 $sukses="";
 
-if(isset($_POST['simpan'])){
-    $id_anggota= $_POST['id_anggota'];
-    $nama= $_POST['nama'];
-    $jenis_kelamin= $_POST['jenis_kelamin'];
-    $alamat= $_POST['alamat'];
-    $tanggungan= $_POST['tanggungan'];
-    
+if(isset($_GET['op'])){
+    $op = $_GET['op'];
+} else {
+    $op = "";
+}
 
-    if($id_anggota && $nama && $jenis_kelamin && $alamat && $tanggungan){
-        $sql1 = "insert into koperasi_web.anggota(id_anggota,nama,jenis_kelamin,alamat,tanggungan) values ('$id_anggota','$nama','$jenis_kelamin','$alamat','$tanggungan')";
-        $q1   = mysqli_query($koneksi,$sql1);
-
-        if ($q1) {
-            $sukses = "Berhasil Memasukan Data Baru";
-        }else {
-            $gagal  = "Gagal Memasukan Data";
-        }
-    }else {
-        $gagal = "Silakan memasukan semua data";
+if($op == 'delete'){
+    $id = $_GET['id_anggota'];
+    $sql1 = "delete from koperasi_web.menyimpan where koperasi_web.menyimpan.id_anggota = '$id'";
+    $q1 = mysqli_query($koneksi,$sql1);
+    if($q1){
+        $sukses = "Data berhasil dihapus";
+    } else {
+        $gagal = "Gagal hapus data";
     }
 }
+
 ?>
  
 <html>
@@ -74,6 +70,30 @@ if(isset($_POST['simpan'])){
             Data Anggota Koperasi
         </div>
         <div class="card-body">
+        <?php
+                if ($gagal) {
+            ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php 
+                        echo $gagal;
+                    ?>
+                </div>
+            <?php
+                header("refresh:5;url=tampil_data_simpanananggota.php");
+                }
+            ?>
+            <?php
+                if ($sukses) {
+            ?>
+                <div class="alert alert-success" role="alert">
+                    <?php
+                        echo $sukses;
+                    ?>
+                </div>
+            <?php
+                header("refresh:5;url=tampil_data_simpanananggota.php");
+                }
+            ?>
                 <table class ="table">
                     <thead>
                         <tr>
@@ -116,8 +136,8 @@ if(isset($_POST['simpan'])){
                                         <td scope="row"><?php echo $tanggal ?></td>
                                         <td scope="row"><?php echo $jumlah ?></td>
                                         <td scope="row">
-                                            <button type="button" class="btn btn-outline-warning">Edit</button>
-                                            <button type="button" class="btn btn-outline-danger">Delete</button>
+                                            <a href="menyimpan.php?op=edit&id_anggota=<?php echo $id_anggota ?>"><button type="button" class="btn btn-outline-warning">Edit</button></a>
+                                            <a href="tampil_data_simpanananggota.php?op=delete&id_anggota=<?php echo $id_anggota ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data?')"><button type="button" class="btn btn-outline-danger">Delete</button></a>
                                         </td>
                                     </tr>
                                 <?php
@@ -125,6 +145,9 @@ if(isset($_POST['simpan'])){
                         ?>
                     </tbody>
                 </table>
+                <div class="col-123">
+                <a href="index.html"><button type="button" class="btn btn-outline-dark">HOME</button></a>
+                </div>
         </div>
     </div>
 </div>
