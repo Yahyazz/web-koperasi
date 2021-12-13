@@ -18,7 +18,7 @@ $kode_jaminan     = "";
 $jumlah_pelunasan ="";
 $tgl_pelunasan ="";
 $status= "";
-
+$op="";
 
 $gagal ="";
 $sukses="";
@@ -47,6 +47,11 @@ if(isset($_POST['simpan'])){
     }else {
         $gagal = "Silakan memasukan semua data";
     }
+}
+if($op == 'delete'){
+    $id = $_GET['id_anggota'];
+    $sql2 = "delete from koperasi_web.angsur where koperasi_web.angsur.id_anggota = '$id'";
+    $q2 = mysqli_query($koneksi,$sql1);
 }
 ?>
  
@@ -160,7 +165,7 @@ if(isset($_POST['simpan'])){
                 <div class="row d-flex justify-content-between">
                     <div class="col-12 d-flex justify-content-end justify-content-between">
                         <a href="admin.html"><button type="button" class="btn btn-outline-dark">Kembali</button></a>
-                        <input type="submit" name="simpan" value="Perlunasan" class="btn btn-primary">
+                        <a href="tampil_data_pinjamananggota.php?op=delete&id_anggota=<?php echo $id_anggota ?>"><input type="submit" name="simpan" value="Perlunasan" class="btn btn-primary"></a>
                     </div>
                 </div>
             </form>
