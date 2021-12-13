@@ -23,6 +23,10 @@ $id_anggota="";
 $id_petugas ="";
 $kode_jaminan ="";
 
+$jenis_jaminan = "";
+$no_pemilik = "";
+$alamat = "";
+
 $gagal ="";
 $sukses="";
 
@@ -104,6 +108,31 @@ $kode_jaminan =$_POST['kode_jaminan'];
         $gagal = "Silakan memasukan semua data";
     }
 }
+
+/*jaminan*/
+
+
+if(isset($_POST['simpan'])){
+    $kode_jaminan                =$_POST['kode_jaminan'];
+    $jenis_jaminan                      =$_POST['jenis_jaminan'];
+    $no_pemilik            =$_POST['no_pemilik'];
+    $alamat         =$_POST['alamat'];
+    
+
+    if($kode_jaminan && $jenis_jaminan && $no_pemilik && $alamat){
+        $sql1 = "insert into koperasi_web.jaminan(kode_jaminan,jenis_jaminan,no_pemilik,alamat) values ('$kode_jaminan','$jenis_jaminan','$no_pemilik','$alamat')";
+        $q1   = mysqli_query($koneksi,$sql1);
+
+        if($q1) {
+            $sukses = "Berhasil Memasukan Data Baru";
+        }else {
+            $gagal  = "Gagal Memasukan Data";
+        }
+    }else {
+        $gagal = "Silakan memasukan semua data";
+    }
+}
+
 ?>
  
  <html lang="en">
@@ -222,6 +251,25 @@ $kode_jaminan =$_POST['kode_jaminan'];
                     <label for="kode_jaminan" class="col-sm-2 col-form-label">Kode Jaminan</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id = "kode_jaminan" name="kode_jaminan"  >
+                    </div>
+                </div>
+             
+             <div class="mb-3 row">
+                    <label for="jenis_jaminan" class="col-sm-2 col-form-label">Jenis Jaminan</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="jenis_jaminan" name="jenis_jaminan"  >
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="no_pemilik" class="col-sm-2 col-form-label">No Pemilik</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="no_pemilik" name="no_pemilik"  >
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="alamat" name="alamat"  >
                     </div>
                 </div>
                 <div class="row d-flex justify-content-between">
