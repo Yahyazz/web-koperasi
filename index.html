@@ -2,185 +2,112 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KOPERASI SIMPAN PINJAM AAGY</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <style>
-    @font-face {
-      font-family: "Poppins Black";
-      src: '/fonts/Poppins-Black.ttf';
-
-      font-family: "Poppins Regular";
-      src: '/fonts/Poppins-Regular.ttf';
-    }
-
-    .col-sm-6 {
-      margin-bottom: 25px;
-    }
-
-    .title-center {
-      text-align: center;
-      margin-top: 5%;
-    }
-
-    .title-center h3 {
-      font-family: "Poppins Black";
-      text-transform: uppercase;
-    }
-
-    .title-center h4 {
-      font-family: "Poppins Regular";
-    }
-
-    .hero-img {
-      margin-top: 10%;
-      margin-bottom: 10%;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <title>KOPERASI SIMPAN PINJAM ALAMI</title>
 </head>
 
 <body>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-          aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">Koperasi Simpan Pinjam</a>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Admin</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About us</a>
-            </li>
-          </ul>
-        </div>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-white" id="sidebar-wrapper">
+      <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+          class="fas fa-hand-holding-usd me-2"></i>KSP Alami</div>
+      <div class="list-group list-group-flush my-3">
+        <a href="index.html" class="list-group-item list-group-item-action bg-transparent second-text active"><i
+            class="fas fa-tachometer-alt me-2"></i>User</a>
+        <a href="admin.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+            class="fas fa-project-diagram me-2"></i>Admin</a>
       </div>
-    </nav>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
-    <div class="container-fluid hero-img">
-      <div class="d-flex justify-content-center">
-        <img src="img/koperasi-img.jpg" class="img-fluid w-25" alt="Logo Koperasi Indonesia">
-      </div>
-      <div class="title-center">
-        <h3>Selamat Datang di Web Koperasi Simpan Pinjam</h3>
-        <h4>Mempermudah Anda Dalam Melakukan Pinjaman Secara Online</h4>
-      </div>
-    </div>
-    <hr>
-    <div class="title-center">
-      <h2>Silahkan Pilih Menu</h2>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Input Anggota</h5>
-            <p class="card-text">Menambahkan Anggota Baru</p>
-            <a href="insert_anggota_koperasi.php" class="btn btn-primary">Tambah Anggota</a>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+          <h2 class="fs-2 m-0">Dashboard User</h2>
+        </div>
+      </nav>
+      <div class="container-fluid px-4">
+        <div class="row hero-section">
+          <div class="col-sm-6 main-title">
+            <div class="main-title">
+              <h3 class="m-0">Selamat Datang di Web Koperasi Simpan Pinjam Alami</h3>
+              <h4 class="m-0">Mempermudah Anda Dalam Melakukan Pinjaman Secara Online</h4>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex justify-content-center">
+              <img src="img/koperasi-img.png" class="img-fluid w-50" alt="Logo Koperasi Indonesia">
+            </div>
+          </div>
+        </div>
+        <div class="row g-3 my-2">
+          <div class="col-md-6">
+            <div class="p-3 bg-white shadow-sm d-flex align-items-center rounded">
+              <div>
+                <h3 class="fs-5">Daftar Anggota</h3>
+                <p class="fs-5">Mendaftar sebagai Anggota Baru</p>
+                <a href="insert_anggota_koperasi.php" class="btn btn-primary">Daftar</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 bg-white shadow-sm d-flex align-items-center rounded">
+              <div>
+                <h3 class="fs-5">Simpanan</h3>
+                <p class="fs-5">Mengajukan Simpanan dengan mudah</p>
+                <a href="menyimpan.php" class="btn btn-primary">Simpan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3 my-2">
+          <div class="col-md-6">
+            <div class="p-3 bg-white shadow-sm d-flex align-items-center rounded">
+              <div>
+                <h3 class="fs-5">Pinjaman</h3>
+                <p class="fs-5">Mengajukan Pinjaman dengan mudah</p>
+                <a href="insert_pinjaman.php" class="btn btn-primary">Pinjam</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-3 bg-white shadow-sm d-flex align-items-center rounded">
+              <div>
+                <h3 class="fs-5">Angsuran</h3>
+                <p class="fs-5">Melakukan angsuran</p>
+                <a href="insert_angsuran.php" class="btn btn-primary">Bayar</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Rekap data Anggota</h5>
-            <p class="card-text">Melihat rekapan lengkap data anggota</p>
-            <a href="tampil_data_anggota.php" class="btn btn-primary">Lihat data anggota</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Simpanan</h5>
-            <p class="card-text">Ajukan Simpanan dan Ambil Simpanan</p>
-            <a href="menyimpan.php" class="btn btn-primary">Simpanan</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Rekap data Simpanan Anggota</h5>
-            <p class="card-text">Melihat rekapan lengkap data simpanan</p>
-            <a href="tampil_data_simpanananggota.php" class="btn btn-primary">Lihat data</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Peminjaman</h5>
-            <p class="card-text">Ajukan Pinjaman dan Mengangsur pinjaman</p>
-            <a href="insert_pinjaman.php" class="btn btn-primary">Pinjaman</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Rekap data Pinjaman Anggota</h5>
-            <p class="card-text">Melihat rekapan lengkap data pinjaman</p>
-            <a href="tampil_data_pinjamananggota.php" class="btn btn-primary">Lihat data</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Angsuran</h5>
-            <p class="card-text">Mengajukan angsuran</p>
-            <a href="insert_angsuran.php" class="btn btn-primary">Angsur</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Perlunasan</h5>
-            <p class="card-text">Melakukan perlunasan</p>
-            <a href="insert_perlunasan.php" class="btn btn-primary">Perlunasan</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Jaminan</h5>
-            <p class="card-text">Mengajukan jaminan</p>
-            <a href="insert_jaminan.php" class="btn btn-primary">Jaminan</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Input Petugas</h5>
-            <p class="card-text">Menambahkan petugas baru</p>
-            <a href="insert_petugas.php" class="btn btn-primary">Tambah Petugas</a>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var el = document.getElementById("wrapper");
+    var toggleButton = document.getElementById("menu-toggle");
+
+    toggleButton.onclick = function () {
+      el.classList.toggle("toggled");
+    };
+  </script>
 </body>
 
 </html>
