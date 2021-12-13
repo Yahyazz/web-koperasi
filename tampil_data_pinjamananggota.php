@@ -158,7 +158,7 @@ if($op == 'delete'){
                                         <td scope="row"><?php echo $lama_angsuran ?></td>
                                         <td scope="row"><?php echo $nama_petugas ?></td>
                                         <td scope="row">
-                                            <a href="insert_pinjaman.php?op=edit&kode_pinjaman=<?php echo $kode_pinjaman ?>"><button type="button" class="btn btn-outline-warning">Edit</button></a>
+                                            <a href="insert_pinjamanp.php?op=edit&kode_pinjaman=<?php echo $kode_pinjaman ?>"><button type="button" class="btn btn-outline-warning">Edit</button></a>
                                             <a href="tampil_data_pinjamananggota.php?op=delete&kode_pinjaman=<?php echo $kode_pinjaman ?>" onclick="return confirm('Apakah Anda yakin akan menghapus data?')"><button type="button" class="btn btn-outline-danger">Delete</button></a>
                                         </td>
                                     </tr>
